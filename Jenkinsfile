@@ -1,14 +1,25 @@
-
 Jenkinsfile (Declarative Pipeline)
 
 pipeline {
-    agent any
+    agent none
     stages {
-        stage('Example') {
+        stage('Build') {
             steps {
-                echo 'Hello World'
+                echo 'Hello World!!'
+            }
+        }
+        stage('Deploy') {
+            when {
+                beforeInput true
+                branch 'production'
+            }
+            input {
+                message "Deploy to production?"
+                id "simple-input"
+            }
+            steps {
+                echo 'Deploying'
             }
         }
     }
 }
-
